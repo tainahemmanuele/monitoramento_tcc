@@ -24,7 +24,7 @@ groups:
 - name: host
   rules:
   - alert: high_cpu_load
-    expr: node_load1 > 1.5
+    expr: node_load1 > 8
     for: 30s
     labels:
       severity: warning
@@ -106,3 +106,29 @@ groups:
       summary: "Nexus high memory usage"
       description: "Nexus memory consumption is at {{ humanize $value}}."
 
+  - alert: redmine_down
+    expr: absent(container_memory_usage_bytes{name="redmine"})
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Redmine down"
+      description: "Redmine container is down for more than 30 seconds."
+
+  - alert: redmine_high_cpu
+    expr: sum(rate(container_cpu_usage_seconds_total{name="redmine"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Redmine high CPU usage"
+      description: "Redmine CPU usage is {{ humanize $value}}%."
+
+  - alert: redmine_high_memory
+    expr: sum(container_memory_usage_bytes{name="redmine"}) > 1200000000
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Redmine high memory usage"
+      description: "Redmine memory consumption is at {{ humanize $value}}."

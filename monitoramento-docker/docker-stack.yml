@@ -1,7 +1,5 @@
 version: '3'
 
-
-
 services:
   influx:
     image: influxdb
@@ -70,7 +68,7 @@ services:
     ports:
       - 8012:3000
     volumes:
-      - grafana:/var/lib/grafana
+      - ./grafana:/var/lib/grafana
       - ./prometheus/grafana/provisioning/:/etc/grafana/provisioning/
     depends_on:
       - influx
@@ -84,8 +82,8 @@ services:
   cadvisor:
     image: google/cadvisor
     ports:
-      - 0.0.0.0:8013:8080
-    hostname: '{{.Node.ID}}'
+      - 8013:8080
+    hostname: '{{.Node.Hostname}}'
     command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
     volumes:
       - /:/rootfs:ro
