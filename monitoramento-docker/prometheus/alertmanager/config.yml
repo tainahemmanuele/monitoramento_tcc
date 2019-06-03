@@ -7,5 +7,5 @@ receivers:
           - send_resolved: true
             text: "{{ .CommonAnnotations.description }}"
             username: 'Prometheus'
-            channel: '#teste'
-            api_url: 'https://hooks.slack.com/services/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'
+            channel: 'nomedocanalnoslack'
+            api_url: 'urldoslackaqui'
