@@ -55,4 +55,15 @@ A primeira configuração será adicionar o bd do Influx ao mesmo. Para isso na 
 
 ![](https://github.com/tainahemmanuele/monitoramento_tcc/blob/master/img/conf_grafana.png)
 
+# Usando dashboards no grafana #
+
+Todos as dashboards usadas nessa solução, são de uso oficial e estão disponibilizados no site do [Grafana Labs](https://grafana.com/dashboards)
+
+Se estiver usando apenas o Prometheus, use a dashboard:
+
+- [179](https://grafana.com/dashboards/179)
+
+Se estiver usando Prometheus + cAdvisor, use a dashboard:
+
+- [8321](https://grafana.com/dashboards/8321)
 
