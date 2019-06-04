@@ -67,3 +67,14 @@ Se estiver usando Prometheus + cAdvisor, use a dashboard:
 
 - [8321](https://grafana.com/dashboards/8321)
 
+Para instalar a dashboard, na página inicial do Grafana, selecione "+" e clique em "import"
+
+![](https://github.com/tainahemmanuele/monitoramento_tcc/blob/master/img/conf_dash_1.png)
+
+Depois, coloque o número da dashboard a ser usada no campo "Grafana.com dashboard" e clique em "load"
+
+![](https://github.com/tainahemmanuele/monitoramento_tcc/blob/master/img/conf_dash_2.png)
+
+Por último, selecione "Prometheus" em options e clique em "import". A dashboard já estará configurada e pronta para uso
+
+![](https://github.com/tainahemmanuele/monitoramento_tcc/blob/master/img/conf_dash_3.png)
