@@ -9,7 +9,7 @@ Quando usamos uma configuração de Cluster através do Docker Swarm, a execuç�
 O Docker Swarm utiliza dois elementos para definir os servicos : Manager e Worker.
 Um nó é uma instância  Docker Engine em execução em um host que esteja participando do cluster Swarm. Um cluster Docker deve ter pelo menos um nó Manager.
 
-## Diferenca entre Manager e Worker
+## Diferença entre Manager e Worker
 Um nó Manager possui a responsabilidade de disparar unidades de trabalho denominadas tasks (tarefas). Um cluster Docker pode ter mais de um nó Manager.
 Um nó Worker apenas replica as configurações definidas no Manager, ou seja, ele não pode disparar novas tarefas no Cluster e nem sempre terá os mesmos serviços que são executados no Manager.
 OBS: Um nó Manager também é um nó worker.
@@ -35,6 +35,7 @@ E execute o comando gerado com o token de acesso na máquina (ou máquinas) que 
 # Docker Stack
 Depois de configurado a infraestrutura com Docker Swarm, chegou a hora de fazer o deploy dos serviços. Os servicos que serão iniciados são: Grafana (para gerar os gráficos de monitoramento a partir das métricas coletadas), InfluxDB (banco de dados que irá amazenar as métricas), cAdvisor (Monitoramento que gera metricas de todos os recursos de hardware que serviços que usam containers costumam usar).
 Para iniciar esses serviços, usaremos o Docker Stack. No terminal de uma máquina que seja nó Manager, execute:
+
 `docker stack deploy -c docker-stack.yml monitor`
 
 Para verificar se os servicos foram criados, execute o comando:
@@ -48,6 +49,10 @@ Depois de criar a stack, execute o seguinte comando para criar o banco de dados 
 
     `docker exec `docker ps | grep -i influx | awk '{print $1}'` influx -execute 'CREATE DATABASE cadvisor'`
 
-Depois de instalar o Grafana , acesse o mesmo (ipmaquinamanager:8012) para configura-lo.
+Depois de configurar o bd do influx, acesse o Grafana (ipmaquinamanager:8012) para configura-lo.
 
 A primeira configuração será adicionar o bd do Influx ao mesmo. Para isso na página inicial do Grafana, clique em "Create your first data source". Na paǵina que irá se abrir, preencha conforme a imagem abaixo e salve.
+
+![](https://github.com/tainahemmanuele/monitoramento_tcc/blob/master/img/conf_grafana.png)
+
+
