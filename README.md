@@ -32,18 +32,31 @@ Depois de definir um nó (ou nós) manager, será preciso definir os nós worker
 
 E execute o comando gerado com o token de acesso na máquina (ou máquinas) que também será  worker.
 
-# Docker Stack
+# Docker Stack Prometheus
 Depois de configurado a infraestrutura com Docker Swarm, chegou a hora de fazer o deploy dos serviços. Os servicos que serão iniciados são: Grafana (para gerar os gráficos de monitoramento a partir das métricas coletadas), InfluxDB (banco de dados que irá amazenar as métricas), cAdvisor (Monitoramento que gera metricas de todos os recursos de hardware que serviços que usam containers costumam usar).
 Para iniciar esses serviços, usaremos o Docker Stack. No terminal de uma máquina que seja nó Manager, execute:
 
 `docker stack deploy -c docker-stack.yml monitor`
 
+
 Para verificar se os servicos foram criados, execute o comando:
+
 `docker stack services monitor`
+
 Que irá mostrar todos os serviços criados e a quantidade de replicas (de nós workers) que possuem os mesmos serviços.
 
-# Usando Prometheus + cAdvisor
+Para saber se todos os containers da stack estão executando corretamente, use o comando:
+`docker stack ps monitor`
+
+# Docker Stack Prometheus + cAdvisor
+
+**Obs**: Para usar o cAdvisor junto com o Prometheus, descomente as linhas que estão comentadas no arquivo docker-stack.yml
+
 Para usar as métricas já disponibilizadas no cAdvisor, junto com o Prometheus, basta, seguir os passos:
+
+Crie a stack:
+
+`docker stack deploy -c docker-stack.yml monitor`
 
 Depois de criar a stack, execute o seguinte comando para criar o banco de dados InfluxDB:
 

@@ -14,8 +14,8 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9090:9090
-    depends_on:
-      - cadvisor
+    #depends_on:
+      #- cadvisor
     deploy:
       placement:
         constraints:
@@ -57,47 +57,47 @@ services:
     ports:
       - 8012:3000
     volumes:
-      - ./grafana:/var/lib/grafana
+      -  grafana:/var/lib/grafana
       - ./prometheus/grafana/provisioning/:/etc/grafana/provisioning/
     depends_on:
-      - influx
+      #- influx
       - prometheus
     deploy:
       replicas: 1
       placement:
         constraints:
           - node.role == manager
-  influx:
-    image: influxdb
-    ports:
-      - 8086:8086
-    volumes:
-      - influx:/var/lib/influxdb
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
+  #influx:
+    #image: influxdb
+    #ports:
+      #- 8086:8086
+    #volumes:
+      #- influx:/var/lib/influxdb
+    #deploy:
+      #replicas: 1
+      #placement:
+        #constraints:
+          #- node.role == manager
 
-  cadvisor:
-    image: google/cadvisor
-    ports:
-      - 8013:8080
-    hostname: '{{.Node.Hostname}}'
-    command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    depends_on:
-      - influx
-    deploy:
-      mode: global
+  #cadvisor:
+    #image: google/cadvisor
+    #ports:
+      #- 8013:8080
+    #hostname: '{{.Node.Hostname}}'
+    #command: -logtostderr -docker_only -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influx:8086
+    #volumes:
+      #- /:/rootfs:ro
+      #- /var/run:/var/run:rw
+      #- /sys:/sys:ro
+      #- /var/lib/docker/:/var/lib/docker:ro
+    #depends_on:
+      #- influx
+    #deploy:
+      #mode: global
 
 volumes:
-  influx:
-    driver: local
+  #influx:
+    #driver: local
   grafana:
     driver: local
   prometheus_data : {}
