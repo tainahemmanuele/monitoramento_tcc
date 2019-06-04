@@ -124,7 +124,7 @@ groups:
       summary: "Redmine high CPU usage"
       description: "Redmine CPU usage is {{ humanize $value}}%."
 
-  - alert: redmine_high_memory
+  - alert: remdine_high_memory
     expr: sum(container_memory_usage_bytes{name="redmine"}) > 1200000000
     for: 30s
     labels:
@@ -132,3 +132,30 @@ groups:
     annotations:
       summary: "Redmine high memory usage"
       description: "Redmine memory consumption is at {{ humanize $value}}."
+
+  - alert: sonarqube_down
+    expr: absent(container_memory_usage_bytes{name="sonarqube"})
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Sonarqube down"
+      description: "Sonarqube container is down for more than 30 seconds."
+
+  - alert: sonarqube_high_cpu
+    expr: sum(rate(container_cpu_usage_seconds_total{name="sonarqube"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Sonaruqbe high CPU usage"
+      description: "Sonarqube CPU usage is {{ humanize $value}}%."
+
+  - alert: sonarqube_high_memory
+    expr: sum(container_memory_usage_bytes{name="sonarqube"}) > 1200000000
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Sonaruqbe high memory usage"
+      description: "Sonarqube memory consumption is at {{ humanize $value}}."
